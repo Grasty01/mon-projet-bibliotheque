@@ -2,5 +2,25 @@
   "dependencies": {
     "express": "^5.2.1",
     "pg": "^8.23.0"
-  }
+  },
+  "name": "mon-projet-bibliotheque",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grasty01/mon-projet-bibliotheque.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Grasty01/mon-projet-bibliotheque/issues"
+  },
+  "homepage": "https://github.com/Grasty01/mon-projet-bibliotheque#readme"
 }
