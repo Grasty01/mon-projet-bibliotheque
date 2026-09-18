@@ -87,6 +87,7 @@ export let deleteAuthor = async (req, res) => {
 
     if (!authorWasDeleted) {
       res.status(500).json({ message: "Impossible de supprimer cet auteur" });
+      return;
     }
 
     res.status(200).json({
