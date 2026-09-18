@@ -54,6 +54,7 @@ export let updateAnExistingAuthor = async (
       "UPDATE authors SET author_name = $1, author_nationality = $2 WHERE author_id = $3 RETURNING *";
     const queryParam = [newAuthorName, newAuthorNationnality, authorId];
     const result = await pool.query(query, queryParam);
+
     return result;
   } catch (error) {
     throw new Error(
