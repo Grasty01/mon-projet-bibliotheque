@@ -1,10 +1,12 @@
 "use strict";
 
 import express from "express";
-import { createLoan, returnLoan } from "../controllers/loanController.js";
+import { getLoans, createLoan, returnLoan } from "../controllers/loanController.js";
 import verifyLibrarianRole from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+
+router.get("/", getLoans);
 
 /**
  * Crée un emprunt
