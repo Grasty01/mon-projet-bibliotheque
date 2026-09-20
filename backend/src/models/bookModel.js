@@ -35,6 +35,21 @@ export let findBookByTitle = async (bookTitle) => {
 
 /**
  *
+ * @param {number} bookId
+ * @returns
+ */
+export let findBookById = async (bookId) => {
+  try {
+    const query = `SELECT * FROM books WHERE book_id = $1`;
+    const result = await pool.query(query, [bookId]);
+    return result.rows;
+  } catch (error) {
+    throw new Error(`Oups, la recherche sur ce livre n'a rien donnée ${error}`);
+  }
+};
+
+/**
+ *
  * @param {*} authorName
  * @returns
  */
@@ -71,6 +86,24 @@ export let createANewBook = async (data) => {
   } catch (error) {
     throw new Error(
       `Oups, une erreur est survenue lors du processus de création d'un livre`,
+    );
+  }
+};
+
+/**
+ *
+ * @param {boolean} bookStatus
+ * @param {number} bookId
+ * @returns
+ */
+export let updateBookStatus = async (bookStatus, bookID) => {
+  try {
+    const query = `UPDATE books SET book_availability_status = $1 WHERE book_id = $2 RETURNING *`;
+    const result = await pool.query(query, [bookStatus, bookID]);
+    return result.rows;
+  } catch (error) {
+    throw new Error(
+      `Impossible de mettre à jour le status de ce livre ${error}`,
     );
   }
 };

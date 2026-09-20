@@ -9,7 +9,7 @@ const pool = dbConnexion();
  * @param {*} memberId
  * @returns
  */
-let findMemberById = async (memberId) => {
+export let findMemberById = async (memberId) => {
   try {
     const query = `SELECT * FROM members WHERE member_id = $1`;
     const result = await pool.query(query, [memberId]);
