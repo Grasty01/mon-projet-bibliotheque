@@ -34,6 +34,12 @@ export let getAllOfLoansMember = (req, res) => {
   });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 export let createMember = async (req, res) => {
   try {
     const newMember = await createNewMember(req.body);

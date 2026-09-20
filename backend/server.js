@@ -14,6 +14,21 @@ const app = express();
 const serverPort = 3000;
 
 /**
+ * Autorise le frontend local à communiquer avec l'API.
+ */
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
+/**
  * Le middleware qui affiche les logs dans la console
  */
 app.use(logActivity);

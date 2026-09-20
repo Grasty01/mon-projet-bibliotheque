@@ -46,7 +46,7 @@ export let findAllMembers = async () => {
 export let createNewMember = async (data) => {
   try {
     const query = `INSERT INTO members(member_firstname, member_lastname, member_email, member_address, member_contact) 
-                   VALUES($1, $2, $3, $4, $5) 
+         VALUES($1, $2, $3, $4, $5) 
                    RETURNING *
                    `;
     const queryArrayParams = [
@@ -75,8 +75,8 @@ export let updateExistingMember = async (memberId, data) => {
      */
     const memberToBeUpdated = await findMemberById(memberId);
     const query = `UPDATE members 
-                   SET member_firstname = $1, member_lastname = $2, member_email = $3, 
-                   member_address = $4, member_contact = $5 WHERE member_id = $6
+         SET member_firstname = $1, member_lastname = $2, member_email = $3, 
+         member_address = $4, member_contact = $5 WHERE member_id = $6
                    RETURNING *
                    `;
     const queryArrayParams = [

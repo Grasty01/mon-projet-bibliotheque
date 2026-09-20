@@ -2,6 +2,16 @@
 import { dbConnexion } from "../../config/db.js";
 const pool = dbConnexion();
 
+export let getAllLoans = async () => {
+  try {
+    const query = `SELECT * FROM loans ORDER BY loan_id DESC`;
+    const result = await pool.query(query);
+    return result.rows;
+  } catch (error) {
+    throw new Error(`Impossible de récupérer les emprunts ${error}`);
+  }
+};
+
 /**
  *
  * @param {*} loanId

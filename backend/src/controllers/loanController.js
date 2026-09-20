@@ -1,12 +1,28 @@
 "use strict";
 
 import {
+  getAllLoans,
   createNewLoan,
   getLoanById,
   updateReturnedLoan,
 } from "../models/loanModel.js";
+
 import { findMemberById } from "../models/memberModel.js";
 import { findBookById, updateBookStatus } from "../models/bookModel.js";
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+export let getLoans = async (req, res) => {
+  try {
+    const loans = await getAllLoans();
+    res.status(200).json(loans);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 /**
  *
@@ -47,7 +63,9 @@ export let createLoan = async (req, res) => {
     }
 
     // 4. Validation de la date de retour
-    if (new Date(bodyRequest.estimatedReturnDate) <= new Date()) {
+    const estimatedReturnDate = bodyRequest.estimated_return_date || bodyRequest.estimatedReturnDate;
+
+    if (!estimatedReturnDate || new Date(estimatedReturnDate) <= new Date()) {
       res
         .status(400)
         .json("La date de retour doit être supérieure à la date d'emprunt");
@@ -58,7 +76,7 @@ export let createLoan = async (req, res) => {
     const loan = await createNewLoan(
       member[0].member_id,
       book[0].book_id,
-      bodyRequest.estimated_return_date,
+      estimatedReturnDate,
       false,
     );
 
