@@ -1,13 +1,14 @@
 //Point d'entrée principal qui lance le serveur
 "use strict";
 
-import express from "express";
 import authorRouter from "./src/routes/authorRoutes.js";
 import memberRouter from "./src/routes/memberRoutes.js";
 import bookRouter from "./src/routes/bookRoutes.js";
 import loanRouter from "./src/routes/loanRoutes.js";
 import dashboardRouter from "./src/routes/dashboardRoutes.js";
 import logActivity from "./src/middlewares/loggerMiddleware.js";
+import express from "express";
+import cors from "cors";
 
 const app = express();
 const serverPort = 3000;
@@ -16,6 +17,11 @@ const serverPort = 3000;
  * Le middleware qui affiche les logs dans la console
  */
 app.use(logActivity);
+
+/**
+ * Le middleware permettant a express d'accepter des requettes http provenant du frontend
+ */
+app.use(cors());
 
 /**
  * Permet de parser le corps de la requette afin d'avoir de récupérer les données
