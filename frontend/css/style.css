@@ -1,1 +1,269 @@
-/* Le style global (couleurs, typographie)*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --font-main: 'Roboto', sans-serif;
+    --bg-sidebar: #1e1e2d;
+    --bg-main: #f5f6fa;
+    --card-bg: #ffffff;
+    --primary-color: #3699ff;
+    --danger-color: #f64e60;
+    --text-sidebar: #a2a3b7;
+    --text-main: #3f4254;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Forcer la police sur les formulaires */
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* ==================================================
+   STYLE DE BASE DES ICÔNES
+   ================================================== */
+.icon {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* --- BARRE LATÉRALE --- */
+aside {
+    width: 260px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-sidebar);
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+/* Bouton hamburger / réduction */
+.reduce-menu-icon {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    color: var(--text-sidebar);
+    margin-bottom: 20px;
+}
+
+.reduce-menu-icon svg {
+    width: 24px;
+    height: 24px;
+    margin: 0 28px;
+    flex-shrink: 0;
+}
+
+/* Logo */
+.app-logo {
+    padding-left: 28px;
+    margin-bottom: 40px;
+    transition: opacity 0.2s;
+}
+
+.app-logo div {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.app-logo p {
+    font-size: 0.85rem;
+    color: var(--text-sidebar);
+    margin-top: 5px;
+}
+
+/* Liens du menu */
+.side-menu ul {
+    list-style-type: none;
+    padding: 0 15px;
+}
+
+.side-menu li {
+    margin-bottom: 5px;
+}
+
+.side-menu a {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    color: var(--text-sidebar);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 6px;
+}
+
+.side-menu a .icon {
+    margin: 0 12px 0 14px;
+}
+
+.side-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+.side-menu li.active a {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* ==================================================
+   L'ÉTAT RÉDUIT (Glissement et cache du texte)
+   ================================================== */
+aside.toggled {
+    width: 80px;
+}
+
+/* Suppression totale du logo pour libérer l'espace */
+aside.toggled .app-logo {
+    display: none;
+}
+
+aside.toggled .side-menu ul {
+    padding: 0;
+}
+
+/* Réduction de la zone à 45px et masquage du texte */
+aside.toggled .side-menu a {
+    width: 45px;
+    margin: 0 auto;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+/* Centrage de l'icône dans le carré de 45px */
+aside.toggled .side-menu a .icon {
+    margin: 0 11px 0 11px;
+}
+
+/* --- CONTENU PRINCIPAL --- */
+main {
+    flex: 1;
+    padding: 40px;
+    min-width: 0;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #181c32;
+}
+
+/* --- MISE EN PAGE DES FORMULAIRES (Tablette/Desktop) --- */
+.form-container form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: end;
+}
+
+#create-author-form {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-container .form-group {
+    margin-bottom: 0;
+}
+
+.form-container .btn-submit {
+    grid-column: 1 / -1;
+    width: max-content;
+    margin-top: 5px;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    aside {
+        width: 80px;
+    }
+
+    /* Sur mobile, la barre est fermée par défaut, on cache le logo */
+    aside .app-logo {
+        display: none;
+    }
+
+    aside .side-menu ul {
+        padding: 0;
+    }
+
+    aside .side-menu a {
+        width: 45px;
+        margin: 0 auto;
+        justify-content: flex-start;
+        overflow: hidden;
+    }
+
+    aside .side-menu a .icon {
+        margin: 0 11px 0 11px;
+    }
+
+    /* Quand on clique sur le bouton, le menu s'ouvre à 260px */
+    aside.toggled {
+        width: 260px;
+    }
+
+    /* Quand le menu est ouvert sur mobile, on réaffiche le logo et le texte */
+    aside.toggled .app-logo {
+        display: block;
+    }
+
+    aside.toggled .side-menu ul {
+        padding: 0 15px;
+    }
+
+    aside.toggled .side-menu a {
+        width: auto;
+        margin: 0;
+        overflow: visible;
+    }
+
+    aside.toggled .side-menu a .icon {
+        margin: 0 12px 0 14px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .form-container form,
+    #create-author-form {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-container .btn-submit {
+        width: 100%;
+    }
+}
