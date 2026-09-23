@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: inherit;
+}
+
+a,
+span,
+p {
+    text-decoration: none;
+}
+
+.icon {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* ========== UNIVERSEL ========== */
+.bold-link {
+    font-weight: 600;
+}
+
+/* ========== SIDEBAR ========== */
+aside {
+    width: 280px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: rgb(29, 25, 25);
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+    flex-shrink: 0;
+    color: white;
+    font-family: "Roboto Mono";
+}
+
+.side-reduced {
+    width: 4rem;
+}
+
+aside.side-reduced .app-logo,
+aside.side-reduced .none-display {
+    display: none;
+}
+
+aside.side-reduced .side-menu ul li a,
+aside.side-reduced .logout-item a {
+    justify-content: center;
+}
+
+.side-menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.side-menu ul li,
+.logout-item a {
+    padding-inline: 2rem;
+    padding-block: 1rem;
+}
+
+.side-menu ul li:hover {
+    background-color: rgb(44, 36, 36);
+}
+
+.side-menu ul li a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.side-menu ul li a svg,
+.logout-item a svg {
+    margin-right: 0.5rem;
+}
+
+/* ========== BOUTON DE REDUCTION DE LA SIDEBAR ========== */
+
+.reduce-menu-icon {
+    padding-inline: 1.6rem;
+}
+
+.reduce-menu-icon svg {
+    justify-self: flex-end;
+    cursor: pointer;
+}
+
+.reduce-icon:hover {
+    color: rgb(221, 212, 212);
+}
+
+/* ========= LOGO ==========  */
+.app-logo {
+    padding-inline: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    cursor: pointer;
+}
+
+.app-logo div {
+    text-transform: uppercase;
+    font-family: "Pacifico";
+    font-weight: 900;
+    font-size: 1.6rem;
+}
+
+.app-logo p {
+    font-size: 0.8rem;
+}
+
+/* ========= LOGOUT BUTTON ==========  */
+.logout-item a {
+    display: flex;
+    margin-top: 3.5rem;
+}

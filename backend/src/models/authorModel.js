@@ -27,8 +27,7 @@ export let findAllAuthors = async () => {
  */
 export let creatAnAuthor = async (authorName, authorNationality) => {
   try {
-    const query =
-      "INSERT INTO authors(author_name, author_nationality) VALUES($1, $2) RETURNING *";
+    const query = "INSERT INTO authors(author_name, author_nationality) VALUES($1, $2) RETURNING *";
     const queryParam = [authorName, authorNationality];
     const result = await pool.query(query, queryParam);
     return result.rows;

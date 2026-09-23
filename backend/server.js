@@ -54,6 +54,24 @@ app.use("/api/loans", loanRouter);
 app.use("/api/dashboard", dashboardRouter);
 
 /**
+ * Middleware global de gestion d'erreur
+ * 1. Log de l'erreur pour toi (côté serveur)
+ * 2. Définition du code de statut (500 par défaut si non spécifié)
+ * 3. Renvoi d'une réponse JSON propre au client
+ */
+app.use((err, req, res, next) => {
+  console.error(err.statck);
+
+  const errorStatus = err.statusCode || 500;
+
+  res.status(errorStatus).json({
+    status: "error",
+    statusCode: errorStatus,
+    message: err.message || "Erreur internet du serveur rencontré"
+  })
+})
+
+/**
  * Démarrage du serveur
  */
 app.listen(serverPort, () => {

@@ -7,12 +7,19 @@ import { findAllAuthors, creatAnAuthor, updateAnExistingAuthor, deletAnExistingA
  * @param {*} req
  * @param {*} res
  */
-export let getAllAuthors = async (req, res) => {
+export let getAllAuthors = async (req, res, next) => {
 	try {
 		const results = await findAllAuthors();
+
+		if (results.rows === 0) {
+			const error = new Error("La liste des auteurs est introuvables");
+			error.statusCode = 404;
+			throw error;
+		}
+
 		res.status(200).json(results);
 	} catch (error) {
-		res.status(500).json("Oups, une erreur 500 (Erreur Serveur) est survenue");
+		next(error);
 	}
 };
 
@@ -21,18 +28,20 @@ export let getAllAuthors = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-export let createAuthor = async (req, res) => {
+export let createAuthor = async (req, res, next) => {
 	try {
 		const bodyOfRequest = req.body;
 		const newAuthorCreated = await creatAnAuthor(bodyOfRequest.name, bodyOfRequest.nationality);
 
 		if (!newAuthorCreated) {
-			res.status(400).json("Impossible d'ajouter un utilisateur");
+			const error = new Error("Impossible de créer cet utilisateur");
+			error.statusCode = 400;
+			throw error;
 		}
 
 		res.status(201).json(newAuthorCreated);
 	} catch (error) {
-		res.status(500).json("Oups, une erreur 500 (Erreur Serveur) est survenue. Impossible d'ajouter un auteur ");
+		next(error);
 	}
 };
 
@@ -41,22 +50,21 @@ export let createAuthor = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-export let updateAuthor = async (req, res) => {
+export let updateAuthor = async (req, res, next) => {
 	try {
 		const authorQueryString = req.query;
-		const newAuthorWasUpdated = await updateAnExistingAuthor(
-			req.params.id,
-			authorQueryString.name,
-			authorQueryString.nationality,
+		const newAuthorWasUpdated = await updateAnExistingAuthor(req.params.id, authorQueryString.name, authorQueryString.nationality,
 		);
 
 		if (!newAuthorWasUpdated) {
-			res.status(500).json("Une erreur est survenue lors de la mise à jour de cet auteur");
+			const error = new Error("Impossible de mettre à jour cet utilisateur");
+			error.statusCode = 400;
+			throw error;
 		}
 
 		res.status(201).json(newAuthorWasUpdated.rows);
 	} catch (error) {
-		res.status(500).json("Une erreur est survenue lors de la mise à jour de cet auteur");
+		next(error);
 	}
 };
 
@@ -65,13 +73,14 @@ export let updateAuthor = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-export let deleteAuthor = async (req, res) => {
+export let deleteAuthor = async (req, res, next) => {
 	try {
 		const authorWasDeleted = await deletAnExistingAuthor(req.params.id);
 
 		if (!authorWasDeleted) {
-			res.status(500).json({ message: "Impossible de supprimer cet auteur" });
-			return;
+			const error = new Error("Impossible de supprimer cet utilisateur");
+			error.statusCode = 400;
+			throw error;
 		}
 
 		res.status(200).json({
@@ -79,8 +88,6 @@ export let deleteAuthor = async (req, res) => {
 			author: authorWasDeleted.rows,
 		});
 	} catch (error) {
-		res.status(500).json({
-			message: "Une erreur est survenue lors de la suppression de cet auteur",
-		});
+		next(error);
 	}
 };
