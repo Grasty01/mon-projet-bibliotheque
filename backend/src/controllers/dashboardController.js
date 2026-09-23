@@ -1,13 +1,6 @@
 "use strict";
 
-import {
-  getTotalBooks,
-  getTotalMembers,
-  getNumberCurrentLoan,
-  getNumberOfOverdueLoan,
-  getMostBorrowedBook,
-  getMostActiveMember,
-} from "../models/dashboardModel.js";
+import { getTotalBooks, getTotalMembers, getNumberCurrentLoan, getNumberOfOverdueLoan, getMostBorrowedBook, getMostActiveMember } from "../models/dashboardModel.js";
 
 /**
  * Utilisation de Promise.all pour une exécution indépenante.
@@ -19,21 +12,10 @@ import {
  */
 export let getDashboardStats = async (req, res) => {
   try {
-    const [
-      totalBooks,
-      totalMembers,
-      numberCurrentLoan,
-      numberOfOverdueLoan,
-      mostBorrowedBook,
-      mostActiveMember,
-    ] = await Promise.all([
-      getTotalBooks(),
-      getTotalMembers(),
-      getNumberCurrentLoan(),
-      getNumberOfOverdueLoan(),
-      getMostBorrowedBook(),
-      getMostActiveMember(),
-    ]);
+    const [totalBooks, totalMembers, numberCurrentLoan, numberOfOverdueLoan,
+      mostBorrowedBook, mostActiveMember] = await Promise.all([getTotalBooks(),
+      getTotalMembers(), getNumberCurrentLoan(), getNumberOfOverdueLoan(),
+      getMostBorrowedBook(), getMostActiveMember()]);
 
     /**
      *
